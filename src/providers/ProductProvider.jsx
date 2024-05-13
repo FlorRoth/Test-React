@@ -38,6 +38,30 @@ export const ProductProvider = ({ children }) => {
       })
     }
   }
+
+  const getProductsByCategory = async (category) => {
+    try {
+
+      const { data } = await axiosApi.get(`/products/category/${category}`)
+     
+      dispatch({
+        type: types.product.getProducts,
+        payload: {
+          products: data,
+          isLoading: false,
+        }
+      })
+
+    } catch (error) {
+      dispatch({
+        type: types.product.getProducts,
+        payload: {
+          products: [],
+          isLoading: false,
+        }
+      })
+    }
+  }
   const getCategories = async () => {
 
     try {
@@ -67,6 +91,7 @@ export const ProductProvider = ({ children }) => {
       state,
       getProducts,
       getCategories,
+      getProductsByCategory
     }}>
       {children}
     </ProductContext.Provider>
