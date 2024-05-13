@@ -3,6 +3,7 @@ import { Search } from './Search';
 import { ProductContext } from "../contexts/ProductContext"
 import { Spinner } from './Spinner';
 import { Pagination } from './Pagination';
+import OrderType from '../config/OrderType';
 
 
 
@@ -14,7 +15,7 @@ export const Products = () => {
     const [selectedCategory, setSelectedCategory] = useState();
     const { state, getProducts, getProductsByCategory } = useContext(ProductContext);
     const [products, setProducts] = useState([]);
-    const [sortOrder, setSortOrder] = useState("asc");
+    const [sortOrder, setSortOrder] = useState(OrderType.ASC);
     const [search, setSearch] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
@@ -50,7 +51,7 @@ export const Products = () => {
     const handleOrderSelect = (order) => {
         setSelectedOrder(order);
         toggleActionDropdown(); 
-        setSortOrder(order === "Menor Precio" ? "asc" : "desc");
+        setSortOrder(order === "Menor Precio" ? OrderType.ASC : OrderType.DESC);
     };
 
     const sortedProducts = () => {
